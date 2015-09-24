@@ -13,18 +13,24 @@ def workdir(*paths)
   File.join(@workdir, *paths)
 end
 
+if ARGV.length != 3
+  puts "Usage: "
+  puts "  pdfdiff FILE1.pdf FILE2.pdf RESULT.pdf"
+  exit 0
+end
+
 FileUtils.mkdir(workdir)
 FileUtils.mkdir(workdir("input1"))
 FileUtils.mkdir(workdir("input2"))
 FileUtils.mkdir(workdir("output"))
 
 converter = MiniMagick::Tool::Convert.new
-converter << "sample_new.pdf"
+converter << ARGV[0]
 converter << workdir("input1", "page.png")
 converter.call
 
 converter = MiniMagick::Tool::Convert.new
-converter << "sample_old.pdf"
+converter << ARGV[1]
 converter << workdir("input2", "page.png")
 converter.call
 
@@ -43,7 +49,7 @@ while File.exists?(workdir("input1", "page-#{index}.png")) && File.exists?(workd
   index += 1
 end
 
-merger << "result.pdf"
+merger << ARGV[2]
 merger.call
 
 FileUtils.rm_rf(workdir)
