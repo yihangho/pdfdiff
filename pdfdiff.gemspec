@@ -8,6 +8,7 @@ Gem::Specification.new do |s|
   s.files       = ["bin/pdfdiff"]
   s.license     = "MIT"
   s.executables = ["pdfdiff"]
+  s.homepage    = "https://github.com/yihangho/pdfdiff"
 
   s.add_runtime_dependency("mini_magick", "~> 4.3.3")
 end
