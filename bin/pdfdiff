@@ -19,6 +19,21 @@ if ARGV.length != 3
   exit 0
 end
 
+unless File.exists?(ARGV[0])
+  puts "#{ARGV[0]} does not exist."
+  exit 1
+end
+
+unless File.exists?(ARGV[1])
+  puts "#{ARGV[1]} does not exist."
+  exit 1
+end
+
+if File.exists?(ARGV[2])
+  print "#{ARGV[2]} exists. Overwrite? [yn] "
+  exit 0 unless STDIN.gets.downcase[0] == "y"
+end
+
 FileUtils.mkdir(workdir)
 FileUtils.mkdir(workdir("input1"))
 FileUtils.mkdir(workdir("input2"))
